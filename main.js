@@ -1,39 +1,51 @@
 const main = (function () {
 
-    function createGameboard() {
-        const boardArr = [1, 2];
+    const gameboard = (function () {
+        const boardArr = [['', '', ''], ['', '', ''], ['', '', '']];
         const printBoard = () => console.log(boardArr);
 
         return { boardArr, printBoard };
-    }
+    })();
 
-    function createPlayer () {
-        let score = 0;
-        const getScore = () => score;
-        const giveScore = () => score++;
+    const ticTacToe = (function () {
+        gameboard.printBoard();
+        
+        const players = [
+            {
+                playerNum: 1
+            }, {
+                playerNum: 2
+            }
+        ];
 
-        return { score, getScore, giveScore };
-    }
+        let playerToTakeTurn = players[0];
 
-    const player1 = createPlayer();
-    const player2 = createPlayer();
+        const switchPlayerTurn = () => {
+            playerToTakeTurn = (
+                playerToTakeTurn === playerToTakeTurn[0] ? playerToTakeTurn[1] : playerToTakeTurn[0]
+            )
+        }
+        const getPlayerToTakeTurn = () => playerToTakeTurn;
 
-    console.log(player1.getScore());
-    player1.giveScore();
-    console.log(player1.getScore());
+        return {
+            playerToTakeTurn,
+            getPlayerToTakeTurn,
+            switchPlayerTurn
+            
+        };
+    })();
 
-    const Gameboard = createGameboard();
+    console.log(ticTacToe.getPlayerToTakeTurn());
+    console.log(ticTacToe.switchPlayerTurn());
+    console.log(ticTacToe.getPlayerToTakeTurn());
+
+    const displayController = (function () {
+        // 
+
+        return {};
+    })();
 
 
 
-
-
-
-
-
-
-
-
-
-
+    return { ticTacToe }
 })();
