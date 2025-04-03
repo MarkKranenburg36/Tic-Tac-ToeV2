@@ -21,11 +21,25 @@ const main = (function () {
         let playerToTakeTurn = players[0];
 
         const switchPlayerTurn = () => {
-            playerToTakeTurn = (
-                playerToTakeTurn === playerToTakeTurn[0] ? playerToTakeTurn[1] : playerToTakeTurn[0]
-            )
+            console.log(playerToTakeTurn);
+
+            // playerToTakeTurn = (
+            //     playerToTakeTurn === playerToTakeTurn[0] ? playerToTakeTurn[1] : playerToTakeTurn[0]
+            // )
+
+            if (playerToTakeTurn === players[0]){
+                console.log('1');
+                return playerToTakeTurn = players[1];
+            } else {
+                console.log('2');
+                return playerToTakeTurn = players[0];
+            }
         }
         const getPlayerToTakeTurn = () => playerToTakeTurn;
+
+        console.log(getPlayerToTakeTurn());
+        switchPlayerTurn();
+        console.log(getPlayerToTakeTurn());
 
         return {
             playerToTakeTurn,
@@ -34,10 +48,6 @@ const main = (function () {
             
         };
     })();
-
-    console.log(ticTacToe.getPlayerToTakeTurn());
-    console.log(ticTacToe.switchPlayerTurn());
-    console.log(ticTacToe.getPlayerToTakeTurn());
 
     const displayController = (function () {
         // 
