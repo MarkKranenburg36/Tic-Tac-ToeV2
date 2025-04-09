@@ -19,9 +19,9 @@ const main = (function () {
         }
 
         const checkForWinner = () => {
-            for (let index = 0; index < boardArr[0].length; index++) {
-                const element = boardArr[0][index];
-                console.log(element);
+            console.log(boardArr[0][0]);
+            if (boardArr[0][0] === boardArr[0][1] && boardArr[0][1] === boardArr[0][2]) {
+                console.log('Winner!!');
                 
             }
         }
