@@ -1,3 +1,6 @@
+// note:
+// closures worden nu niet goed gebuikt. inplaats van in board boardArr te returnen zou je set... en get... moeten doen
+
 const main = (function () {
 
     const board = (function () {
@@ -46,8 +49,12 @@ const main = (function () {
         const getcurrentPlayer = () => currentPlayer;
 
         const isCurrentPlayerWinner = (symbolToCheck) => {
-            if (board.boardArr[0][0] === symbolToCheck && board.boardArr[0][0] === board.boardArr[0][1] && board.boardArr[0][1] === board.boardArr[0][2]) {
-                console.log('Winner!!!');
+            // check is player has 3 on a row horizontaly
+            for (let i = 0; i < board.boardArr.length; i++) {
+                const row = board.boardArr[i];
+                if (row[0] === symbolToCheck && row[1] === symbolToCheck && row[2] === symbolToCheck) {
+                    displayController.displayWinner();
+                }
             }
         }
 
@@ -75,12 +82,14 @@ const main = (function () {
     })();
 
     const displayController = (function () {
-        // 
+        const displayWinner = () => {
+            console.log(`${game.getcurrentPlayer().name} has won!!!`);
+        }
 
-        return {};
+        return { displayWinner };
     })();
 
 
 
-    return { game }
+    return { game, displayController }
 })();
