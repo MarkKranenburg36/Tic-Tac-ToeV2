@@ -1,3 +1,6 @@
+// todo:
+// logica om te controleren of 1 van de spelers gewonnen heeft zou denk ik niet onder board object moeten vallen
+
 const main = (function () {
 
     const board = (function () {
@@ -9,24 +12,23 @@ const main = (function () {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
             if(boardArr[row][col] === '') {
-                boardArr[row][col] = game.getPlayerToTakeTurn().playerSymbol;
-                game.switchPlayerTurn();
+                boardArr[row][col] = game.getcurrentPlayer().Symbol;
                 printBoard();
             } else {
                 console.log('spot is already chosen.');
-                game.playRound();
+                game.playRound(true); // retry round
             }
         }
 
-        const checkForWinner = () => {
-            console.log(boardArr[0][0]);
-            if (boardArr[0][0] === boardArr[0][1] && boardArr[0][1] === boardArr[0][2]) {
+        const isCurrentPlayerWinner = (symbolToCheck) => {
+            if (boardArr[0][0] === symbolToCheck && boardArr[0][0] === boardArr[0][1] && boardArr[0][1] === boardArr[0][2]) {
+                
                 console.log('Winner!!');
                 
             }
         }
 
-        return { printBoard, placeSymbol, checkForWinner };
+        return { printBoard, placeSymbol, isCurrentPlayerWinner };
     })();
 
     const game = (function () {
@@ -35,39 +37,42 @@ const main = (function () {
         const players = [
             {
                 name: 'Player One',
-                playerSymbol: 'X',
+                Symbol: 'X',
             }, {
                 name: 'Player Two',
-                playerSymbol: 'O',
+                Symbol: 'O',
             }
         ];
 
-        let playerToTakeTurn = players[0];
+        let currentPlayer = players[0];
 
         const switchPlayerTurn = () => {
-            if (playerToTakeTurn === players[0]){
-                return playerToTakeTurn = players[1];
+            if (currentPlayer === players[0]){
+                return currentPlayer = players[1];
             } else {
-                return playerToTakeTurn = players[0];
+                return currentPlayer = players[0];
             }
         }
 
-        const getPlayerToTakeTurn = () => playerToTakeTurn;
+        const getcurrentPlayer = () => currentPlayer;
 
-        const playRound = () => {
+        const playRound = (retry = false) => {
             const playerChoice = prompt(
-                `Enter ${getPlayerToTakeTurn().name}'s input: `
+                `Enter ${getcurrentPlayer().name}'s input: `
             );
-            console.log(`${getPlayerToTakeTurn().name}'s choise is ${playerChoice}`);
+            console.log(`${getcurrentPlayer().name}'s choise is ${playerChoice}`);
 
             board.placeSymbol(playerChoice);
-            board.checkForWinner();
+            board.isCurrentPlayerWinner(currentPlayer.Symbol);
+            if (!retry) {
+                switchPlayerTurn();
+            }
         }
 
         return {
 
-            playerToTakeTurn,
-            getPlayerToTakeTurn,
+            currentPlayer,
+            getcurrentPlayer,
             switchPlayerTurn,
             playRound,
             
