@@ -1,6 +1,3 @@
-// todo:
-// logica om te controleren of 1 van de spelers gewonnen heeft zou denk ik niet onder board object moeten vallen
-
 const main = (function () {
 
     const board = (function () {
@@ -20,15 +17,7 @@ const main = (function () {
             }
         }
 
-        const isCurrentPlayerWinner = (symbolToCheck) => {
-            if (boardArr[0][0] === symbolToCheck && boardArr[0][0] === boardArr[0][1] && boardArr[0][1] === boardArr[0][2]) {
-                
-                console.log('Winner!!');
-                
-            }
-        }
-
-        return { printBoard, placeSymbol, isCurrentPlayerWinner };
+        return { printBoard, placeSymbol, boardArr };
     })();
 
     const game = (function () {
@@ -56,6 +45,12 @@ const main = (function () {
 
         const getcurrentPlayer = () => currentPlayer;
 
+        const isCurrentPlayerWinner = (symbolToCheck) => {
+            if (board.boardArr[0][0] === symbolToCheck && board.boardArr[0][0] === board.boardArr[0][1] && board.boardArr[0][1] === board.boardArr[0][2]) {
+                console.log('Winner!!!');
+            }
+        }
+
         const playRound = (retry = false) => {
             const playerChoice = prompt(
                 `Enter ${getcurrentPlayer().name}'s input: `
@@ -63,7 +58,7 @@ const main = (function () {
             console.log(`${getcurrentPlayer().name}'s choise is ${playerChoice}`);
 
             board.placeSymbol(playerChoice);
-            board.isCurrentPlayerWinner(currentPlayer.Symbol);
+            isCurrentPlayerWinner(currentPlayer.Symbol);
             if (!retry) {
                 switchPlayerTurn();
             }
