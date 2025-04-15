@@ -49,12 +49,26 @@ const main = (function () {
         const getcurrentPlayer = () => currentPlayer;
 
         const isCurrentPlayerWinner = (symbolToCheck) => {
+            const cell = board.boardArr;
             // check is player has 3 on a row horizontaly
             for (let i = 0; i < board.boardArr.length; i++) {
                 const row = board.boardArr[i];
                 if (row[0] === symbolToCheck && row[1] === symbolToCheck && row[2] === symbolToCheck) {
                     displayController.displayWinner();
                 }
+            }
+            // check is player has 3 on a row vertically
+            for (let i = 0; i < 3; i++) {
+                if (cell[0][i] === symbolToCheck && cell[1][i] === symbolToCheck && cell[2][i]) {
+                    displayController.displayWinner();
+                }
+            }
+            // check is player has 3 on a row diagornally
+            if(cell[0][0] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][2] === symbolToCheck) {
+                displayController.displayWinner();
+            }
+            if(cell[0][2] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][0] === symbolToCheck) {
+                displayController.displayWinner();
             }
         }
 
@@ -77,6 +91,7 @@ const main = (function () {
             getcurrentPlayer,
             switchPlayerTurn,
             playRound,
+            resetGame
             
         };
     })();
