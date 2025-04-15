@@ -1,10 +1,7 @@
-// note:
-// closures worden nu niet goed gebuikt. inplaats van in board boardArr te returnen zou je set... en get... moeten doen
-
 const main = (function () {
 
     const board = (function () {
-        const boardArr = [['', '', ''], ['', '', ''], ['', '', '']];
+        let boardArr = [['', '', ''], ['', '', ''], ['', '', '']];
 
         const printBoard = () => console.log(boardArr);
 
@@ -20,7 +17,11 @@ const main = (function () {
             }
         }
 
-        return { printBoard, placeSymbol, boardArr };
+        const getBoardArr = () => boardArr;
+
+        const reset = () => boardArr = [['', '', ''], ['', '', ''], ['', '', '']];
+
+        return { printBoard, placeSymbol, getBoardArr, reset };
     })();
 
     const game = (function () {
@@ -49,10 +50,10 @@ const main = (function () {
         const getcurrentPlayer = () => currentPlayer;
 
         const isCurrentPlayerWinner = (symbolToCheck) => {
-            const cell = board.boardArr;
+            const cell = board.getBoardArr();
             // check is player has 3 on a row horizontaly
-            for (let i = 0; i < board.boardArr.length; i++) {
-                const row = board.boardArr[i];
+            for (let i = 0; i < board.getBoardArr().length; i++) {
+                const row = board.getBoardArr()[i];
                 if (row[0] === symbolToCheck && row[1] === symbolToCheck && row[2] === symbolToCheck) {
                     displayController.displayWinner();
                 }
@@ -72,6 +73,12 @@ const main = (function () {
             }
         }
 
+        const resetGame = () => {
+            currentPlayer = players[0];
+            board.reset();
+            board.printBoard();
+        }
+
         const playRound = (retry = false) => {
             const playerChoice = prompt(
                 `Enter ${getcurrentPlayer().name}'s input: `
@@ -87,12 +94,11 @@ const main = (function () {
 
         return {
 
-            currentPlayer,
             getcurrentPlayer,
             switchPlayerTurn,
             playRound,
-            resetGame
-            
+            resetGame,
+
         };
     })();
 
