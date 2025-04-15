@@ -1,14 +1,16 @@
+// add logic to handle draw
+
 const main = (function () {
 
     const board = (function () {
-        let boardArr = [['', '', ''], ['', '', ''], ['', '', '']];
+        let boardArr = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
 
         const printBoard = () => console.log(boardArr);
 
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
-            if(boardArr[row][col] === '') {
+            if (boardArr[row][col] === '-') {
                 boardArr[row][col] = game.getcurrentPlayer().Symbol;
                 printBoard();
             } else {
@@ -26,7 +28,7 @@ const main = (function () {
 
     const game = (function () {
         board.printBoard();
-        
+
         const players = [
             {
                 name: 'Player One',
@@ -40,7 +42,7 @@ const main = (function () {
         let currentPlayer = players[0];
 
         const switchPlayerTurn = () => {
-            if (currentPlayer === players[0]){
+            if (currentPlayer === players[0]) {
                 return currentPlayer = players[1];
             } else {
                 return currentPlayer = players[0];
@@ -65,10 +67,10 @@ const main = (function () {
                 }
             }
             // check is player has 3 on a row diagornally
-            if(cell[0][0] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][2] === symbolToCheck) {
+            if (cell[0][0] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][2] === symbolToCheck) {
                 displayController.displayWinner();
             }
-            if(cell[0][2] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][0] === symbolToCheck) {
+            if (cell[0][2] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][0] === symbolToCheck) {
                 displayController.displayWinner();
             }
         }
@@ -90,6 +92,7 @@ const main = (function () {
             if (!retry) {
                 switchPlayerTurn();
             }
+            displayController.render();
         }
 
         return {
@@ -103,11 +106,25 @@ const main = (function () {
     })();
 
     const displayController = (function () {
+        const render = () => {
+            displayBoard = document.getElementById('gameBoard');
+            displayBoard.innerHTML = `
+                <div id="cel1">${board.getBoardArr()[0][0]}</div>
+                <div id="cel2">${board.getBoardArr()[0][1]}</div>
+                <div id="cel3">${board.getBoardArr()[0][2]}</div>
+                <div id="cel4">${board.getBoardArr()[1][0]}</div>
+                <div id="cel5">${board.getBoardArr()[1][1]}</div>
+                <div id="cel6">${board.getBoardArr()[1][2]}</div>
+                <div id="cel7">${board.getBoardArr()[2][0]}</div>
+                <div id="cel8">${board.getBoardArr()[2][1]}</div>
+                <div id="cel9">${board.getBoardArr()[2][2]}</div>
+            `;
+        }
         const displayWinner = () => {
             console.log(`${game.getcurrentPlayer().name} has won!!!`);
         }
 
-        return { displayWinner };
+        return { displayWinner, render };
     })();
 
 
