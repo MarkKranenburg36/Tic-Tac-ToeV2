@@ -4,7 +4,7 @@
 const main = (function () {
 
     const board = (function () {
-        let boardArr = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
+        let boardArr = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
         let isFreeze = false;
 
         const printBoard = () => console.log(boardArr);
@@ -16,7 +16,7 @@ const main = (function () {
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
-            if (boardArr[row][col] === '-') {
+            if (boardArr[row][col] === ' ') {
                 boardArr[row][col] = game.getcurrentPlayer().Symbol;
             } else {
                 console.log('spot is already chosen.');
@@ -29,7 +29,7 @@ const main = (function () {
         const getBoardArr = () => boardArr;
 
         const reset = () => {
-            boardArr = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
+            boardArr = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
             displayController.render()
         }
 
