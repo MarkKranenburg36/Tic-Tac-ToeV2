@@ -13,17 +13,6 @@ const main = (function () {
         
         const getFreeze = () => isFreeze;
 
-        // const placeSymbol = (boardCoordinates) => {
-        //     const row = boardCoordinates.slice(0, 1);
-        //     const col = boardCoordinates.slice(1, 2);
-        //     if (boardArr[row][col] === '-') {
-        //         boardArr[row][col] = game.getcurrentPlayer().Symbol;
-        //     } else {
-        //         console.log('spot is already chosen.');
-        //         game.playRound(true); // retry round
-        //     }
-        // }
-
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
@@ -106,19 +95,6 @@ const main = (function () {
             board.reset();
         }
 
-        // const playRound = (retry = false) => {
-        //     const playerChoice = prompt(
-        //         `Enter ${getcurrentPlayer().name}'s input: `
-        //     );
-
-        //     board.placeSymbol(playerChoice);
-        //     isCurrentPlayerWinner(currentPlayer.Symbol);
-        //     if (!retry) {
-        //         switchPlayerTurn();
-        //     }
-        //     displayController.render();
-        // }
-
         const playRound = (clickedCell) => {
             board.placeSymbol(clickedCell);
             isCurrentPlayerWinner(currentPlayer.Symbol);
@@ -138,6 +114,7 @@ const main = (function () {
 
     const displayController = (function () {
         const displayBoard = document.getElementById('gameBoard');
+        const resetBtn = document.getElementById('restBtn');
 
         const render = () => {
             displayBoard.innerHTML = `
@@ -161,6 +138,10 @@ const main = (function () {
                 });
             });
         }
+
+        resetBtn.addEventListener('click', () => {
+            game.resetGame();
+        })
 
         render();
 
