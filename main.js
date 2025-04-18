@@ -1,18 +1,13 @@
-// add logic to handle draw
-
 const main = (function () {
 
     const board = (function () {
         let boardArr = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
-
-        const printBoard = () => console.log(boardArr);
 
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
             if (boardArr[row][col] === '-') {
                 boardArr[row][col] = game.getcurrentPlayer().Symbol;
-                printBoard();
             } else {
                 console.log('spot is already chosen.');
                 game.playRound(true); // retry round
@@ -23,11 +18,10 @@ const main = (function () {
 
         const reset = () => boardArr = [['', '', ''], ['', '', ''], ['', '', '']];
 
-        return { printBoard, placeSymbol, getBoardArr, reset };
+        return { placeSymbol, getBoardArr, reset };
     })();
 
     const game = (function () {
-        board.printBoard();
 
         const players = [
             {
@@ -78,14 +72,12 @@ const main = (function () {
         const resetGame = () => {
             currentPlayer = players[0];
             board.reset();
-            board.printBoard();
         }
 
         const playRound = (retry = false) => {
             const playerChoice = prompt(
                 `Enter ${getcurrentPlayer().name}'s input: `
             );
-            console.log(`${getcurrentPlayer().name}'s choise is ${playerChoice}`);
 
             board.placeSymbol(playerChoice);
             isCurrentPlayerWinner(currentPlayer.Symbol);
@@ -106,23 +98,35 @@ const main = (function () {
     })();
 
     const displayController = (function () {
+        const displayBoard = document.getElementById('gameBoard');
+
         const render = () => {
-            displayBoard = document.getElementById('gameBoard');
             displayBoard.innerHTML = `
-                <div id="cel1">${board.getBoardArr()[0][0]}</div>
-                <div id="cel2">${board.getBoardArr()[0][1]}</div>
-                <div id="cel3">${board.getBoardArr()[0][2]}</div>
-                <div id="cel4">${board.getBoardArr()[1][0]}</div>
-                <div id="cel5">${board.getBoardArr()[1][1]}</div>
-                <div id="cel6">${board.getBoardArr()[1][2]}</div>
-                <div id="cel7">${board.getBoardArr()[2][0]}</div>
-                <div id="cel8">${board.getBoardArr()[2][1]}</div>
-                <div id="cel9">${board.getBoardArr()[2][2]}</div>
+                <div id="cell1" data-cellCoordinates="00">${board.getBoardArr()[0][0]}</div>
+                <div id="cell2" data-cellCoordinates="01">${board.getBoardArr()[0][1]}</div>
+                <div id="cell3" data-cellCoordinates="02">${board.getBoardArr()[0][2]}</div>
+                <div id="cell4" data-cellCoordinates="10">${board.getBoardArr()[1][0]}</div>
+                <div id="cell5" data-cellCoordinates="11">${board.getBoardArr()[1][1]}</div>
+                <div id="cell6" data-cellCoordinates="12">${board.getBoardArr()[1][2]}</div>
+                <div id="cell7" data-cellCoordinates="20">${board.getBoardArr()[2][0]}</div>
+                <div id="cell8" data-cellCoordinates="21">${board.getBoardArr()[2][1]}</div>
+                <div id="cell9" data-cellCoordinates="22">${board.getBoardArr()[2][2]}</div>
             `;
         }
+
+        render();
+
         const displayWinner = () => {
             console.log(`${game.getcurrentPlayer().name} has won!!!`);
         }
+
+        const boardCells = displayBoard.querySelectorAll(':scope > div');
+
+        boardCells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                console.log(cell.dataset.cellcoordinates);
+            });
+        });
 
         return { displayWinner, render };
     })();

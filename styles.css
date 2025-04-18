@@ -8,5 +8,11 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px;
     text-align: center;
+    background-color: gainsboro;
+}
+
+#gameBoard > * {
+    background-color: gray;
 }
