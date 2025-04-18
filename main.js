@@ -1,9 +1,17 @@
+// todo
+// remove legacy placesymbol and playround
+
 const main = (function () {
 
     const board = (function () {
         let boardArr = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
+        let isFreeze = false;
 
         const printBoard = () => console.log(boardArr);
+
+        const setFreeze = (bool) => isFreeze = bool;
+        
+        const getFreeze = () => isFreeze;
 
         // const placeSymbol = (boardCoordinates) => {
         //     const row = boardCoordinates.slice(0, 1);
@@ -36,7 +44,7 @@ const main = (function () {
             displayController.render()
         }
 
-        return { placeSymbol, getBoardArr, reset, printBoard };
+        return { placeSymbol, getBoardArr, reset, printBoard, setFreeze, getFreeze,};
     })();
 
     const game = (function () {
@@ -69,25 +77,31 @@ const main = (function () {
             for (let i = 0; i < board.getBoardArr().length; i++) {
                 const row = board.getBoardArr()[i];
                 if (row[0] === symbolToCheck && row[1] === symbolToCheck && row[2] === symbolToCheck) {
-                    displayController.displayWinner();
+                    endGame();
                 }
             }
             // check is player has 3 on a row vertically
             for (let i = 0; i < 3; i++) {
                 if (cell[0][i] === symbolToCheck && cell[1][i] === symbolToCheck && cell[2][i] === symbolToCheck) {
-                    displayController.displayWinner();
+                    endGame();
                 }
             }
             // check is player has 3 on a row diagornally
             if (cell[0][0] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][2] === symbolToCheck) {
-                displayController.displayWinner();
+                endGame();
             }
             if (cell[0][2] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][0] === symbolToCheck) {
-                displayController.displayWinner();
+                endGame();
             }
         }
 
+        const endGame = () => {
+            displayController.displayWinner();
+            board.setFreeze(true);
+        }
+
         const resetGame = () => {
+            board.setFreeze(false);
             currentPlayer = players[0];
             board.reset();
         }
@@ -142,6 +156,7 @@ const main = (function () {
 
             boardCells.forEach(cell => {
                 cell.addEventListener('click', () => {
+                    if (board.getFreeze() === false)
                     game.playRound(cell.dataset.cellcoordinates);
                 });
             });
