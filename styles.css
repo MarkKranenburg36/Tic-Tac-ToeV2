@@ -13,10 +13,12 @@
     --primary-dark: #503A2B;
     --primary-soft: #D4BFB0;
     --player-red: #CA3C25;
+    --player-blue: #1C435F;
 }
 
 body {
     font-family: "Poppins", sans-serif;
+    font-weight: 600;
     margin: 0;
     background-color: var(--primary-light);
 }
@@ -48,6 +50,7 @@ body {
 }
 
 #gameBoard {
+    font-size: 6rem;
     margin: 10vh 5vh 7.5vh 5vh;
     height: 50vh;
     display: grid;
@@ -68,9 +71,22 @@ body {
 
 button {
     font-size: 2rem;
+    font-weight: 600;
 }
 
 #resetBtnContainer {
     height: 12.5vh;
     align-items: start;
+}
+
+.playerSymbol {
+    font-weight: 600;
+}
+
+.playerRed {
+    color: var(--player-red);
+}
+
+.playerBlue {
+    color: var(--player-blue);
 }

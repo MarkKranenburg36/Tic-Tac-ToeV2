@@ -4,7 +4,24 @@
 const main = (function () {
 
     const board = (function () {
-        let boardArr = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
+        let boardArr = [
+            [
+              { symbol: ' ', color: null },
+              { symbol: ' ', color: null },
+              { symbol: ' ', color: null }
+            ],
+            [
+              { symbol: ' ', color: null },
+              { symbol: ' ', color: null },
+              { symbol: ' ', color: null }
+            ],
+            [
+              { symbol: ' ', color: null },
+              { symbol: ' ', color: null },
+              { symbol: ' ', color: null }
+            ]
+          ];
+          
         let isFreeze = false;
 
         const printBoard = () => console.log(boardArr);
@@ -16,10 +33,9 @@ const main = (function () {
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
-            if (boardArr[row][col] === ' ') {
-                boardArr[row][col] = game.getcurrentPlayer().Symbol;
+            if (boardArr[row][col].symbol === ' ') {
+                boardArr[row][col].symbol = game.getcurrentPlayer().Symbol;
             } else {
-                console.log('spot is already chosen.');
                 game.switchPlayerTurn(); // switch player to give current player another
                 // round to chose new cell, this will undo the effect of the
                 // switch player call in the playround function
@@ -29,7 +45,11 @@ const main = (function () {
         const getBoardArr = () => boardArr;
 
         const reset = () => {
-            boardArr = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
+            boardArr =  [
+                [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
+                [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
+                [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
+              ];
             displayController.render()
         }
 
@@ -65,21 +85,21 @@ const main = (function () {
             // check is player has 3 on a row horizontaly
             for (let i = 0; i < board.getBoardArr().length; i++) {
                 const row = board.getBoardArr()[i];
-                if (row[0] === symbolToCheck && row[1] === symbolToCheck && row[2] === symbolToCheck) {
+                if (row[0].symbol === symbolToCheck && row[1].symbol === symbolToCheck && row[2].symbol === symbolToCheck) {
                     endGame();
                 }
             }
             // check is player has 3 on a row vertically
             for (let i = 0; i < 3; i++) {
-                if (cell[0][i] === symbolToCheck && cell[1][i] === symbolToCheck && cell[2][i] === symbolToCheck) {
+                if (cell[0][i].symbol === symbolToCheck && cell[1][i].symbol === symbolToCheck && cell[2][i].symbol === symbolToCheck) {
                     endGame();
                 }
             }
             // check is player has 3 on a row diagornally
-            if (cell[0][0] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][2] === symbolToCheck) {
+            if (cell[0][0].symbol === symbolToCheck && cell[1][1].symbol === symbolToCheck && cell[2][2].symbol === symbolToCheck) {
                 endGame();
             }
-            if (cell[0][2] === symbolToCheck && cell[1][1] === symbolToCheck && cell[2][0] === symbolToCheck) {
+            if (cell[0][2].symbol === symbolToCheck && cell[1][1].symbol === symbolToCheck && cell[2][0].symbol === symbolToCheck) {
                 endGame();
             }
         }
@@ -118,15 +138,15 @@ const main = (function () {
 
         const render = () => {
             displayBoard.innerHTML = `
-                <div id="cell1" data-cellCoordinates="00">${board.getBoardArr()[0][0]}</div>
-                <div id="cell2" data-cellCoordinates="01">${board.getBoardArr()[0][1]}</div>
-                <div id="cell3" data-cellCoordinates="02">${board.getBoardArr()[0][2]}</div>
-                <div id="cell4" data-cellCoordinates="10">${board.getBoardArr()[1][0]}</div>
-                <div id="cell5" data-cellCoordinates="11">${board.getBoardArr()[1][1]}</div>
-                <div id="cell6" data-cellCoordinates="12">${board.getBoardArr()[1][2]}</div>
-                <div id="cell7" data-cellCoordinates="20">${board.getBoardArr()[2][0]}</div>
-                <div id="cell8" data-cellCoordinates="21">${board.getBoardArr()[2][1]}</div>
-                <div id="cell9" data-cellCoordinates="22">${board.getBoardArr()[2][2]}</div>
+                <div id="cell1" data-cellCoordinates="00">${board.getBoardArr()[0][0].symbol}</div>
+                <div id="cell2" data-cellCoordinates="01">${board.getBoardArr()[0][1].symbol}</div>
+                <div id="cell3" data-cellCoordinates="02">${board.getBoardArr()[0][2].symbol}</div>
+                <div id="cell4" data-cellCoordinates="10">${board.getBoardArr()[1][0].symbol}</div>
+                <div id="cell5" data-cellCoordinates="11">${board.getBoardArr()[1][1].symbol}</div>
+                <div id="cell6" data-cellCoordinates="12">${board.getBoardArr()[1][2].symbol}</div>
+                <div id="cell7" data-cellCoordinates="20">${board.getBoardArr()[2][0].symbol}</div>
+                <div id="cell8" data-cellCoordinates="21">${board.getBoardArr()[2][1].symbol}</div>
+                <div id="cell9" data-cellCoordinates="22">${board.getBoardArr()[2][2].symbol}</div>
             `;
 
             const boardCells = displayBoard.querySelectorAll(':scope > div');
