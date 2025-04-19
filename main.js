@@ -114,7 +114,7 @@ const main = (function () {
 
     const displayController = (function () {
         const displayBoard = document.getElementById('gameBoard');
-        const resetBtn = document.getElementById('restBtn');
+        const resetBtn = document.getElementById('resetBtn');
 
         const render = () => {
             displayBoard.innerHTML = `
