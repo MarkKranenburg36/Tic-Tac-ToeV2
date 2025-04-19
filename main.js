@@ -33,8 +33,11 @@ const main = (function () {
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
+            const player = game.getcurrentPlayer();
+
             if (boardArr[row][col].symbol === ' ') {
-                boardArr[row][col].symbol = game.getcurrentPlayer().Symbol;
+                boardArr[row][col].symbol = player.Symbol;
+                // add color to board
             } else {
                 game.switchPlayerTurn(); // switch player to give current player another
                 // round to chose new cell, this will undo the effect of the
