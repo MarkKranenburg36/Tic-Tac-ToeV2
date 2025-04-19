@@ -37,7 +37,7 @@ const main = (function () {
 
             if (boardArr[row][col].symbol === ' ') {
                 boardArr[row][col].symbol = player.Symbol;
-                // add color to board
+                boardArr[row][col].color = player.color;
             } else {
                 game.switchPlayerTurn(); // switch player to give current player another
                 // round to chose new cell, this will undo the effect of the
@@ -65,9 +65,11 @@ const main = (function () {
             {
                 name: 'Player One',
                 Symbol: 'X',
+                color: 'blue',
             }, {
                 name: 'Player Two',
                 Symbol: 'O',
+                color: 'red',
             }
         ];
 
