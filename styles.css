@@ -31,11 +31,11 @@ body {
     text-align: center;
     color: var(--primary-dark);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    height: 10vh;
+    height: calc(var(--vh, 1vh) * 10);
 }
 
 .displayContainer {
-    height: 10vh;
+    height: calc(var(--vh, 1vh) * 10);
     font-size: 1.5rem;
     display: flex;
     justify-content: space-around;
@@ -52,7 +52,7 @@ body {
 #gameBoard {
     font-size: 6rem;
     margin: 10vh 5vh 7.5vh 5vh;
-    height: 50vh;
+    height: calc(var(--vh, 1vh) * 50);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -75,7 +75,7 @@ button {
 }
 
 #resetBtnContainer {
-    height: 12.5vh;
+    height: calc(var(--vh, 1vh) * 12.5);
     align-items: start;
 }
 

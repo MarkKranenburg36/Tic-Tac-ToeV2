@@ -141,6 +141,11 @@ const main = (function () {
         const displayBoard = document.getElementById('gameBoard');
         const resetBtn = document.getElementById('resetBtn');
 
+        const setVh = () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
         const render = () => {
             const boardArr = board.getBoardArr();
             displayBoard.innerHTML = `
@@ -169,11 +174,14 @@ const main = (function () {
             game.resetGame();
         })
 
-        render();
-
         const displayWinner = () => {
             console.log(`${game.getcurrentPlayer().name} has won!!!`);
         }
+
+        setVh();
+        render();
+
+        window.addEventListener('resize', setVh);
 
         return { displayWinner, render };
     })();
