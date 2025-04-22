@@ -53,7 +53,7 @@ const main = (function () {
                 [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
                 [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
               ];
-            displayController.render()
+            displayController.renderBoard()
         }
 
         return { placeSymbol, getBoardArr, reset, printBoard, setFreeze, getFreeze,};
@@ -117,6 +117,7 @@ const main = (function () {
         const resetGame = () => {
             board.setFreeze(false);
             currentPlayer = players[0];
+            displayController.renderCurrentPlayerMarker();
             board.reset();
         }
 
@@ -124,7 +125,8 @@ const main = (function () {
             board.placeSymbol(clickedCell);
             isCurrentPlayerWinner(currentPlayer.Symbol);
             switchPlayerTurn();
-            displayController.render();
+            displayController.renderCurrentPlayerMarker();
+            displayController.renderBoard();
         }
 
         return {
@@ -140,13 +142,15 @@ const main = (function () {
     const displayController = (function () {
         const displayBoard = document.getElementById('gameBoard');
         const resetBtn = document.getElementById('resetBtn');
-
+        const playerOneDisplay = document.getElementById('playerOneDisplay');
+        const playerTwoDisplay = document.getElementById('playerTwoDisplay');
+        
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         }
 
-        const render = () => {
+        const renderBoard = () => {
             const boardArr = board.getBoardArr();
             displayBoard.innerHTML = `
                 <div id="cell1" class='${boardArr[0][0].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="00">${boardArr[0][0].symbol}</div>
@@ -170,6 +174,18 @@ const main = (function () {
             });
         }
 
+        const renderCurrentPlayerMarker = () => {
+            currentPlayer = game.getcurrentPlayer().name;
+
+            if(currentPlayer === 'Player One' && !board.getFreeze()) {
+                playerTwoDisplay.classList.remove('currentPlayer');
+                playerOneDisplay.classList.add('currentPlayer');
+            } else if (!board.getFreeze()){
+                playerOneDisplay.classList.remove('currentPlayer');
+                playerTwoDisplay.classList.add('currentPlayer');
+            }
+        }
+
         resetBtn.addEventListener('click', () => {
             game.resetGame();
         })
@@ -179,11 +195,11 @@ const main = (function () {
         }
 
         setVh();
-        render();
+        renderBoard();
 
         window.addEventListener('resize', setVh);
 
-        return { displayWinner, render };
+        return { displayWinner, renderBoard, renderCurrentPlayerMarker };
     })();
 
 

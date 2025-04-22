@@ -72,6 +72,7 @@ body {
 button {
     font-size: 2rem;
     font-weight: 600;
+    border-color: var(--primary-dark);
 }
 
 #resetBtnContainer {
@@ -89,4 +90,9 @@ button {
 
 .playerBlue {
     color: var(--player-blue);
+}
+
+.currentPlayer {
+    box-shadow: 4px 4px var(--primary-dark);
+    transition: box-shadow 250ms ease-out;
 }
