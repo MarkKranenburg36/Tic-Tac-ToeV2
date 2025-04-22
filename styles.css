@@ -93,6 +93,7 @@ button {
 }
 
 .currentPlayer {
-    box-shadow: 4px 4px var(--primary-dark);
+    border: 1px solid var(--primary-dark);
+    box-shadow: 2px 2px var(--primary-dark);
     transition: box-shadow 250ms ease-out;
 }
