@@ -24,11 +24,13 @@ body {
 }
 
 #header {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Jersey 20", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 4rem;
-    text-align: center;
+    font-size: 4.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--primary-dark);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     height: calc(var(--vh, 1vh) * 10);
