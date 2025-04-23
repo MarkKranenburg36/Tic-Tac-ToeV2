@@ -1,33 +1,33 @@
-// todo
-// remove legacy placesymbol and playround
+// to do
+// verander get current player naar in player object isCurrent?
 
 const main = (function () {
 
     const board = (function () {
         let boardArr = [
             [
-              { symbol: ' ', color: null },
-              { symbol: ' ', color: null },
-              { symbol: ' ', color: null }
+                { symbol: ' ', color: null },
+                { symbol: ' ', color: null },
+                { symbol: ' ', color: null }
             ],
             [
-              { symbol: ' ', color: null },
-              { symbol: ' ', color: null },
-              { symbol: ' ', color: null }
+                { symbol: ' ', color: null },
+                { symbol: ' ', color: null },
+                { symbol: ' ', color: null }
             ],
             [
-              { symbol: ' ', color: null },
-              { symbol: ' ', color: null },
-              { symbol: ' ', color: null }
+                { symbol: ' ', color: null },
+                { symbol: ' ', color: null },
+                { symbol: ' ', color: null }
             ]
-          ];
-          
+        ];
+
         let isFreeze = false;
 
         const printBoard = () => console.log(boardArr);
 
         const setFreeze = (bool) => isFreeze = bool;
-        
+
         const getFreeze = () => isFreeze;
 
         const placeSymbol = (boardCoordinates) => {
@@ -48,15 +48,15 @@ const main = (function () {
         const getBoardArr = () => boardArr;
 
         const reset = () => {
-            boardArr =  [
-                [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
-                [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
-                [{ symbol: ' ', color: null },{ symbol: ' ', color: null },{ symbol: ' ', color: null }],
-              ];
+            boardArr = [
+                [{ symbol: ' ', color: null }, { symbol: ' ', color: null }, { symbol: ' ', color: null }],
+                [{ symbol: ' ', color: null }, { symbol: ' ', color: null }, { symbol: ' ', color: null }],
+                [{ symbol: ' ', color: null }, { symbol: ' ', color: null }, { symbol: ' ', color: null }],
+            ];
             displayController.renderBoard()
         }
 
-        return { placeSymbol, getBoardArr, reset, printBoard, setFreeze, getFreeze,};
+        return { placeSymbol, getBoardArr, reset, printBoard, setFreeze, getFreeze, };
     })();
 
     const game = (function () {
@@ -64,14 +64,22 @@ const main = (function () {
         const players = [
             {
                 name: 'Player One',
+                displayName: 'Player',
                 Symbol: 'X',
                 color: 'blue',
             }, {
                 name: 'Player Two',
+                displayName: 'Player',
                 Symbol: 'O',
                 color: 'red',
             }
         ];
+
+        const getPlayers = () => players;
+
+        const setPlayerDisplayName = (index, newName) => {
+            players[index].displayName = newName;
+        }
 
         let currentPlayer = players[0];
 
@@ -121,6 +129,17 @@ const main = (function () {
             board.reset();
         }
 
+        const inputPlayerDisplayName = (e) => {
+            const input = prompt('Enter name:');
+            const name = input[0].toUpperCase() + input.slice(1);
+            if (e.target.id === 'playerOneDisplay') {
+                setPlayerDisplayName([0], name);
+            } else {
+                setPlayerDisplayName([1], name);
+            }
+            displayController.renderCurrentPlayerMarker();
+        }
+
         const playRound = (clickedCell) => {
             board.placeSymbol(clickedCell);
             isCurrentPlayerWinner(currentPlayer.Symbol);
@@ -135,6 +154,9 @@ const main = (function () {
             switchPlayerTurn,
             playRound,
             resetGame,
+            inputPlayerDisplayName,
+            getPlayers,
+            setPlayerDisplayName, // verwijder
 
         };
     })();
@@ -144,7 +166,7 @@ const main = (function () {
         const resetBtn = document.getElementById('resetBtn');
         const playerOneDisplay = document.getElementById('playerOneDisplay');
         const playerTwoDisplay = document.getElementById('playerTwoDisplay');
-        
+
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -169,26 +191,30 @@ const main = (function () {
             boardCells.forEach(cell => {
                 cell.addEventListener('click', () => {
                     if (board.getFreeze() === false)
-                    game.playRound(cell.dataset.cellcoordinates);
+                        game.playRound(cell.dataset.cellcoordinates);
                 });
             });
         }
 
         const renderCurrentPlayerMarker = () => {
-            currentPlayer = game.getcurrentPlayer().name;
+            const currentPlayer = game.getcurrentPlayer().name;
+            const players = game.getPlayers();
 
-            if(currentPlayer === 'Player One' && !board.getFreeze()) {
+            playerOneDisplay.innerHTML = players[0].displayName + ' <span class="playerSymbol playerBlue">X</span>';
+            playerTwoDisplay.innerHTML = players[1].displayName + ' <span class="playerSymbol playerRed">O</span>';
+
+            if (currentPlayer === 'Player One' && !board.getFreeze()) {
                 playerTwoDisplay.classList.remove('currentPlayer');
                 playerOneDisplay.classList.add('currentPlayer');
-            } else if (!board.getFreeze()){
+            } else if (!board.getFreeze()) {
                 playerOneDisplay.classList.remove('currentPlayer');
                 playerTwoDisplay.classList.add('currentPlayer');
             }
         }
 
-        resetBtn.addEventListener('click', () => {
-            game.resetGame();
-        })
+        resetBtn.addEventListener('click', () => game.resetGame());
+        playerOneDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
+        playerTwoDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
 
         const displayWinner = () => {
             console.log(`${game.getcurrentPlayer().name} has won!!!`);
@@ -196,10 +222,11 @@ const main = (function () {
 
         setVh();
         renderBoard();
+        renderCurrentPlayerMarker();
 
         window.addEventListener('resize', setVh);
 
-        return { displayWinner, renderBoard, renderCurrentPlayerMarker };
+        return { displayWinner, renderBoard, renderCurrentPlayerMarker, };
     })();
 
 
