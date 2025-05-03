@@ -127,6 +127,7 @@ const main = (function () {
             currentPlayer = players[0];
             displayController.renderCurrentPlayerMarker();
             board.reset();
+            displayController.toggleDiagram();
         }
 
         const inputPlayerDisplayName = (e) => {
@@ -156,7 +157,7 @@ const main = (function () {
             resetGame,
             inputPlayerDisplayName,
             getPlayers,
-            setPlayerDisplayName, // verwijder
+            setPlayerDisplayName, // verwijder-------------------------------------------------------
 
         };
     })();
@@ -166,6 +167,8 @@ const main = (function () {
         const resetBtn = document.getElementById('resetBtn');
         const playerOneDisplay = document.getElementById('playerOneDisplay');
         const playerTwoDisplay = document.getElementById('playerTwoDisplay');
+        const winnerDialog = document.getElementById('winnerDialog');
+        const dialogHeader = document.querySelector('#winnerDialog > h2');
 
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
@@ -217,8 +220,19 @@ const main = (function () {
         playerTwoDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
 
         const displayWinner = () => {
-            console.log(`${game.getcurrentPlayer().name} has won!!!`);
+            let name = null;
+            if (game.getcurrentPlayer().displayName === 'Player') {
+                name = game.getcurrentPlayer().name;
+            } else {
+                name = game.getcurrentPlayer().displayName;
+            }
+            dialogHeader.innerHTML= `${name}`;
+            toggleDiagram();
         }
+
+        const toggleDiagram = () => {
+            winnerDialog.open = !winnerDialog.open
+        };
 
         setVh();
         renderBoard();
@@ -226,7 +240,7 @@ const main = (function () {
 
         window.addEventListener('resize', setVh);
 
-        return { displayWinner, renderBoard, renderCurrentPlayerMarker, };
+        return { displayWinner, renderBoard, renderCurrentPlayerMarker, toggleDiagram};
     })();
 
 
