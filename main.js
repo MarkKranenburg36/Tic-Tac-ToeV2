@@ -177,7 +177,7 @@ const main = (function () {
         const playerOneDisplay = document.getElementById('playerOneDisplay');
         const playerTwoDisplay = document.getElementById('playerTwoDisplay');
         const winnerDialog = document.getElementById('winnerDialog');
-        const dialogHeader = document.querySelector('#winnerDialog > h2');
+        const dialogHeader = document.querySelector('#winnerDialog > h1');
 
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
@@ -235,7 +235,7 @@ const main = (function () {
             } else {
                 name = game.getcurrentPlayer().displayName;
             }
-            dialogHeader.innerHTML= `${name}`;
+            dialogHeader.innerHTML= `${name} wins!`;
         }
 
         const toggleDiagram = () => {
