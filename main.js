@@ -1,6 +1,3 @@
-// to do
-// verander get current player naar in player object isCurrent?
-
 const main = (function () {
 
     const board = (function () {
@@ -67,11 +64,13 @@ const main = (function () {
                 displayName: 'Player',
                 Symbol: 'X',
                 color: 'blue',
+                isCurrentPlayer: true,
             }, {
                 name: 'Player Two',
                 displayName: 'Player',
                 Symbol: 'O',
                 color: 'red',
+                isCurrentPlayer: false,
             }
         ];
 
@@ -81,19 +80,26 @@ const main = (function () {
             players[index].displayName = newName;
         }
 
-        let currentPlayer = players[0];
-
         const switchPlayerTurn = () => {
-            if (currentPlayer === players[0]) {
-                return currentPlayer = players[1];
+            if (players[0].isCurrentPlayer) {
+                players[0].isCurrentPlayer = false
+                players[1].isCurrentPlayer = true;
             } else {
-                return currentPlayer = players[0];
+                players[0].isCurrentPlayer = true
+                players[1].isCurrentPlayer = false;
             }
         }
 
-        const getcurrentPlayer = () => currentPlayer;
+        const getcurrentPlayer = () => {
+            if (players[0].isCurrentPlayer) {
+                return players[0];
+            } else {
+                return players[1];
+            }
+        }
 
-        const isCurrentPlayerWinner = (symbolToCheck) => {
+        const isCurrentPlayerWinner = (currentPlayer) => {
+            symbolToCheck = currentPlayer.Symbol
             const cell = board.getBoardArr();
             // check is player has 3 on a row horizontaly
             for (let i = 0; i < board.getBoardArr().length; i++) {
@@ -118,16 +124,20 @@ const main = (function () {
         }
 
         const endGame = () => {
-            displayController.displayWinner();
+            displayController.printWinnerOnDialog();
+            displayController.toggleDiagram();
             board.setFreeze(true);
         }
 
         const resetGame = () => {
-            board.setFreeze(false);
-            currentPlayer = players[0];
+            players[0].isCurrentPlayer = true;
+            players[1].isCurrentPlayer = false;
             displayController.renderCurrentPlayerMarker();
             board.reset();
-            displayController.toggleDiagram();
+            if (displayController.isDialogOpen()) {
+                displayController.toggleDiagram();
+            }
+            board.setFreeze(false);
         }
 
         const inputPlayerDisplayName = (e) => {
@@ -143,7 +153,7 @@ const main = (function () {
 
         const playRound = (clickedCell) => {
             board.placeSymbol(clickedCell);
-            isCurrentPlayerWinner(currentPlayer.Symbol);
+            isCurrentPlayerWinner(getcurrentPlayer());
             switchPlayerTurn();
             displayController.renderCurrentPlayerMarker();
             displayController.renderBoard();
@@ -157,7 +167,6 @@ const main = (function () {
             resetGame,
             inputPlayerDisplayName,
             getPlayers,
-            setPlayerDisplayName, // verwijder-------------------------------------------------------
 
         };
     })();
@@ -219,7 +228,7 @@ const main = (function () {
         playerOneDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
         playerTwoDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
 
-        const displayWinner = () => {
+        const printWinnerOnDialog = () => {
             let name = null;
             if (game.getcurrentPlayer().displayName === 'Player') {
                 name = game.getcurrentPlayer().name;
@@ -227,12 +236,13 @@ const main = (function () {
                 name = game.getcurrentPlayer().displayName;
             }
             dialogHeader.innerHTML= `${name}`;
-            toggleDiagram();
         }
 
         const toggleDiagram = () => {
-            winnerDialog.open = !winnerDialog.open
+            winnerDialog.open = !winnerDialog.open;
         };
+
+        const isDialogOpen = () => winnerDialog.open;
 
         setVh();
         renderBoard();
@@ -240,7 +250,15 @@ const main = (function () {
 
         window.addEventListener('resize', setVh);
 
-        return { displayWinner, renderBoard, renderCurrentPlayerMarker, toggleDiagram};
+        return { 
+            
+            printWinnerOnDialog,
+            renderBoard,
+            renderCurrentPlayerMarker,
+            toggleDiagram,
+            isDialogOpen,
+
+        };
     })();
 
 
