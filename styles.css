@@ -118,3 +118,8 @@ button {
     z-index: 1;
     background-color: var(--secondary);
 }
+
+.dialogShow {
+    display: flex;
+    flex-direction: column;
+}
