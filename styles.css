@@ -25,13 +25,14 @@ body {
     font-weight: 600;
     margin: 0; 
     background-color: var(--primary-light);
+    font-size: clamp(1.5rem, 4.5vw, 4rem);
 }
 
 #header {
     font-family: "Jersey 20", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 4.5rem;
+    font-size: clamp(4rem, 15vw, 12rem);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,10 +43,10 @@ body {
 
 .displayContainer {
     height: calc(var(--vh, 1vh) * 10);
-    font-size: 1.5rem;
     display: flex;
     justify-content: space-around;
     align-items: end;
+    max-width: 1500px;
 }
 
 .displayDiv {
@@ -67,7 +68,7 @@ body {
     gap: 0.75vh;
     text-align: center;
     background-color: var(--primary-dark);
-
+    max-width: 1200px;
 }
 
 #gameBoard>* {
@@ -85,6 +86,7 @@ button {
     padding: 0.5rem 1.5rem;
     border-radius: 1rem;
     border: 1px solid var(--primary-dark);
+    font-size: clamp(1.75rem, 6vw, 6rem);
 }
 
 #resetBtnContainer {
@@ -123,3 +125,30 @@ button {
     display: flex;
     flex-direction: column;
 }
+
+@media (min-width: 1365px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #header {
+        min-width: 100vw;
+    }
+
+    .displayContainer {
+        min-width: 100vw;
+    }
+
+    #gameBoard {
+        min-width: 1200px;
+    }
+}
+
+@media (orientation: landscape) {
+    #header {
+        font-size: clamp(4rem, 13vh, 15rem);
+    }
+  }
+  
