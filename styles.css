@@ -139,6 +139,17 @@ button {
     align-items: center;
 }
 
+footer {
+    background-color: var(--backGroundBtn);
+    height: 5vh;
+}
+
+footer > button {
+    background-color: var(--backgroundMain);
+    height: 2.5vh;
+    font-size: 2vh;
+}
+
 @media (min-width: 1365px) {
     body {
         display: flex;
