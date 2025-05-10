@@ -5,11 +5,11 @@
 }
 
 :root {
-    --primary-light: #EDE2D4;
-    --secondary: #F3ECE2;
-    --primary-dark: #503A2B;
-    --primary-dark-opacity: rgba(80, 58, 43, 0.8);
-    --primary-soft: #D4BFB0;
+    --backgroundMain: #EDE2D4;
+    --backGroundDialog: #F3ECE2;
+    --font: #503A2B;
+    --fontOpacity: rgba(80, 58, 43, 0.8);
+    --backGroundBtn: #D4BFB0;
     --player-red: #CA3C25;
     --player-blue: #1C435F;
 }
@@ -17,8 +17,8 @@
 body {
     font-family: "Poppins", sans-serif;
     font-weight: 600;
-    margin: 0; 
-    background-color: var(--primary-light);
+    margin: 0;
+    background-color: var(--backgroundMain);
     font-size: clamp(1.5rem, 4.5vw, 4rem);
 }
 
@@ -30,7 +30,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--primary-dark);
+    color: var(--font);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     height: calc(var(--vh, 1vh) * 10);
 }
@@ -44,11 +44,11 @@ body {
 }
 
 .displayDiv {
-    background-color: var(--primary-soft);
-    color: var(--primary-dark);
+    background-color: var(--backGroundBtn);
+    color: var(--font);
     padding: 0.5rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid var(--primary-dark);
+    border: 1px solid var(--font);
     opacity: 0.95;
 }
 
@@ -61,26 +61,31 @@ body {
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0.75vh;
     text-align: center;
-    background-color: var(--primary-dark);
+    background-color: var(--font);
     max-width: 1200px;
 }
 
 #gameBoard>* {
-    background-color: var(--primary-light);
+    background-color: var(--backgroundMain);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+:hover#gameBoard>* {
+    cursor: pointer;
+}
+
 button {
     font-size: 2rem;
     font-weight: 600;
-    background-color: var(--primary-soft);
-    color: var(--primary-dark);
+    background-color: var(--backGroundBtn);
+    color: var(--font);
     padding: 0.5rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid var(--primary-dark);
+    border: 1px solid var(--font);
     font-size: clamp(1.75rem, 6vw, 6rem);
+    cursor: pointer;
 }
 
 #resetBtnContainer {
@@ -102,7 +107,7 @@ button {
 
 .currentPlayer {
     will-change: transform, box-shadow;
-    box-shadow: 1px 2px 2px var(--primary-dark-opacity);
+    box-shadow: 1px 2px 2px var(--fontOpacity);
     opacity: 1;
     transition: box-shadow 300ms ease;
     transform: translateY(-1px);
@@ -112,7 +117,7 @@ button {
     opacity: 1;
     border-width: 4px;
     z-index: 1;
-    background-color: var(--secondary);
+    background-color: var(--backGroundDialog);
     width: 75vw;
     margin-top: 12vh;
     font-size: 3.8vw;
@@ -177,14 +182,13 @@ button {
 
     #winnerDialog {
         width: 60vw;
-        font-size: clamp(2rem, 3.45vw, 3.5rem);
+        font-size: clamp(2rem, 3vw, 3.5rem);
     }
 
 
 
-    #winnerDialog > button {
-        width:  30vw;
+    #winnerDialog>button {
+        width: 30vw;
         font-size: clamp(1.5rem, 3vw, 3rem);
     }
-  }
-  
+}
