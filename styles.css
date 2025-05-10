@@ -14,6 +14,16 @@
     --player-blue: #1C435F;
 }
 
+[data-theme='dark'] {
+    --backgroundMain: #121212;
+    --backGroundDialog: #535353;
+    --font: #1db954;
+    --fontOpacity: rgba(29, 185, 84, 0.8);
+    --backGroundBtn: #212121;
+    --player-red: #F45B69;
+    --player-blue: #7EBCE6;
+}
+
 body {
     font-family: "Poppins", sans-serif;
     font-weight: 600;

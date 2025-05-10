@@ -253,10 +253,18 @@ const main = (function () {
 
         dialogBtn.addEventListener('click', () => toggleDiagram());
 
+        const toggleTheme = () => {
+            document.documentElement.dataset.theme === 'dark' ? (
+                document.documentElement.removeAttribute('data-theme')
+            ) : (
+                document.documentElement.setAttribute('data-theme', 'dark')
+            );
+        }
+
         setVh();
         renderBoard();
         renderCurrentPlayerMarker();
-
+        
         window.addEventListener('resize', setVh);
 
         return { 
@@ -266,11 +274,12 @@ const main = (function () {
             renderCurrentPlayerMarker,
             toggleDiagram,
             isDialogOpen,
+            toggleTheme,
 
         };
     })();
 
 
 
-    return { game, displayController, board }
+    return { game, displayController, board, }
 })();
