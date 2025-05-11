@@ -32,17 +32,20 @@ body {
     font-size: clamp(1.5rem, 4.5vw, 4rem);
 }
 
-#header {
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    height: calc(var(--vh, 1vh) * 10);
+}
+
+header > h1 {
     font-family: "Jersey 20", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: clamp(4rem, 15vw, 12rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: var(--font);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    height: calc(var(--vh, 1vh) * 10);
 }
 
 .displayContainer {
@@ -157,7 +160,7 @@ footer > button {
         align-items: center;
     }
 
-    #header {
+    header {
         min-width: 100vw;
     }
 
@@ -177,8 +180,11 @@ footer > button {
         align-items: center;
     }
 
-    #header {
+    header {
         min-width: 100vw;
+    }
+
+    header > h1 {
         font-size: clamp(4rem, 13vh, 15rem);
     }
 

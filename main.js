@@ -179,7 +179,6 @@ const main = (function () {
         const winnerDialog = document.getElementById('winnerDialog');
         const dialogHeader = document.querySelector('#winnerDialog > h1');
         const dialogBtn = document.querySelector('#winnerDialog > button');
-        const themeBtn = document.querySelector('footer>button');
 
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
@@ -253,7 +252,6 @@ const main = (function () {
         const isDialogOpen = () => winnerDialog.open;
 
         dialogBtn.addEventListener('click', () => toggleDiagram());
-        themeBtn.addEventListener('click', () => toggleTheme());
 
         const toggleTheme = () => {
             document.documentElement.dataset.theme === 'dark' ? (
