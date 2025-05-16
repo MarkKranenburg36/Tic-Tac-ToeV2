@@ -256,11 +256,13 @@ const main = (function () {
         themeBtn.addEventListener('click', () => toggleTheme());
 
         const toggleTheme = () => {
-            document.documentElement.dataset.theme === 'dark' ? (
+            if (document.documentElement.dataset.theme === 'dark') {
                 document.documentElement.removeAttribute('data-theme')
-            ) : (
+                themeBtn.innerText = '🌙';
+            } else {
                 document.documentElement.setAttribute('data-theme', 'dark')
-            );
+                themeBtn.innerText = '☀️';
+            }
         }
 
         setVh();
