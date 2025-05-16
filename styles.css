@@ -51,9 +51,10 @@ header > h1 {
 
 header > button {
     position: absolute;
-    right: 2vw;
+    right: 2%;
+    top: 20%;
     height: 6vh;
-    width: clamp(1rem, 10vw, 6rem);
+    width: clamp(1rem, 10vw, 4rem);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,7 +169,7 @@ footer > button {
     font-size: 2vh;
 }
 
-@media (min-width: 1365px) {
+/* @media (min-width: 1365px) {
     body {
         display: flex;
         flex-direction: column;
@@ -179,6 +180,10 @@ footer > button {
         min-width: 100vw;
     }
 
+    header > button {
+        background-color: blue;
+    }
+
     .displayContainer {
         min-width: 100vw;
     }
@@ -186,7 +191,7 @@ footer > button {
     #gameBoard {
         min-width: 50vw;
     }
-}
+} */
 
 @media (orientation: landscape) {
     body {
@@ -201,6 +206,10 @@ footer > button {
 
     header > h1 {
         font-size: clamp(4rem, 13vh, 15rem);
+    }
+
+    header > button {
+        font-size: clamp(2rem, 7.5vw, 2.75rem);
     }
 
     .displayContainer {
