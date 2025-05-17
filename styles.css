@@ -24,6 +24,23 @@
     --player-blue: #7EBCE6;
 }
 
+.layout-container {
+    height: calc(var(--vh, 1vh) * 10);
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    max-width: 1500px;
+}
+
+.box-style {
+    background-color: var(--backGroundBtn);
+    color: var(--font);
+    padding: 0.5rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--font);
+    opacity: 0.95;
+}
+
 body {
     font-family: "Poppins", sans-serif;
     font-weight: 600;
@@ -62,23 +79,6 @@ header > button {
     transform: translateY(10%);
     font-size: clamp(2rem, 7.5vw, 3.75rem);
     padding: 0;
-}
-
-.displayContainer {
-    height: calc(var(--vh, 1vh) * 10);
-    display: flex;
-    justify-content: space-around;
-    align-items: end;
-    max-width: 1500px;
-}
-
-.box-style {
-    background-color: var(--backGroundBtn);
-    color: var(--font);
-    padding: 0.5rem 1.5rem;
-    border-radius: 1rem;
-    border: 1px solid var(--font);
-    opacity: 0.95;
 }
 
 #gameBoard {
@@ -188,7 +188,7 @@ footer > button {
         font-size: clamp(2rem, 7.5vw, 2.75rem);
     }
 
-    .displayContainer {
+    .layout-container {
         min-width: 100vw;
         font-size: clamp(2rem, 4.5vh, 12rem);
     }
