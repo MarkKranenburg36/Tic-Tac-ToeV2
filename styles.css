@@ -5,21 +5,21 @@
 }
 
 :root {
-    --backgroundMain: #EDE2D4;
-    --backGroundDialog: #F3ECE2;
-    --font: #503A2B;
-    --fontOpacity: rgba(80, 58, 43, 0.8);
-    --backGroundBtn: #D4BFB0;
+    --background-main: #EDE2D4;
+    --background-dialog: #F3ECE2;
+    --font-color: #503A2B;
+    --font-color-muted: rgba(80, 58, 43, 0.8);
+    --background-btn: #D4BFB0;
     --player-red: #CA3C25;
     --player-blue: #1C435F;
 }
 
 [data-theme='dark'] {
-    --backgroundMain: #121212;
-    --backGroundDialog: #535353;
-    --font: #1db954;
-    --fontOpacity: rgba(29, 185, 84, 0.8);
-    --backGroundBtn: #212121;
+    --background-main: #121212;
+    --background-dialog: #535353;
+    --font-color: #1db954;
+    --font-color-muted: rgba(29, 185, 84, 0.8);
+    --background-btn: #212121;
     --player-red: #F45B69;
     --player-blue: #7EBCE6;
 }
@@ -33,11 +33,11 @@
 }
 
 .box-style {
-    background-color: var(--backGroundBtn);
-    color: var(--font);
+    background-color: var(--background-btn);
+    color: var(--font-color);
     padding: 0.5rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid var(--font);
+    border: 1px solid var(--font-color);
     opacity: 0.95;
 }
 
@@ -45,7 +45,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     margin: 0;
-    background-color: var(--backgroundMain);
+    background-color: var(--background-main);
     font-size: clamp(1.5rem, 4.5vw, 4rem);
 }
 
@@ -63,7 +63,7 @@ header > h1 {
     font-weight: 400;
     font-style: normal;
     font-size: clamp(3rem, 15vw, 12rem);
-    color: var(--font);
+    color: var(--font-color);
 }
 
 header > button {
@@ -90,12 +90,12 @@ header > button {
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0.75vh;
     text-align: center;
-    background-color: var(--font);
+    background-color: var(--font-color);
     max-width: 1200px;
 }
 
 #gameBoard>* {
-    background-color: var(--backgroundMain);
+    background-color: var(--background-main);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,13 +106,12 @@ header > button {
 }
 
 button {
-    font-size: 2rem;
     font-weight: 600;
-    background-color: var(--backGroundBtn);
-    color: var(--font);
+    background-color: var(--background-btn);
+    color: var(--font-color);
     padding: 0.5rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid var(--font);
+    border: 1px solid var(--font-color);
     font-size: clamp(1.75rem, 6vw, 6rem);
     cursor: pointer;
 }
@@ -136,7 +135,7 @@ button {
 
 .currentPlayer {
     will-change: transform, box-shadow;
-    box-shadow: 1px 2px 2px var(--fontOpacity);
+    box-shadow: 1px 2px 2px var(--font-color-muted);
     opacity: 1;
     transition: box-shadow 300ms ease;
     transform: translateY(-1px);
@@ -146,7 +145,7 @@ button {
     opacity: 1;
     border-width: 4px;
     z-index: 1;
-    background-color: var(--backGroundDialog);
+    background-color: var(--background-dialog);
     width: 75vw;
     margin-top: 12vh;
     font-size: 3.8vw;
@@ -159,12 +158,12 @@ button {
 }
 
 footer {
-    background-color: var(--backGroundBtn);
+    background-color: var(--background-btn);
     height: 5vh;
 }
 
 footer > button {
-    background-color: var(--backgroundMain);
+    background-color: var(--background-main);
     height: 2.5vh;
     font-size: 2vh;
 }
@@ -211,8 +210,6 @@ footer > button {
         width: 60vw;
         font-size: clamp(2rem, 3vw, 3.5rem);
     }
-
-
 
     #winnerDialog>button {
         width: 30vw;
