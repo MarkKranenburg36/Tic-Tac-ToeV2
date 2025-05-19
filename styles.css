@@ -80,6 +80,10 @@ header>button {
     padding: 0;
 }
 
+header > button > svg {
+    fill: var(--font-color);
+}
+
 #gameBoard {
     font-size: 6rem;
     margin: 10vh 5vh 7.5vh 5vh;
@@ -190,7 +194,6 @@ footer>button {
     header > button > svg {
         width: clamp(35px, 10vh, 100px);
         height: clamp(45px, 6.25vh, 68.75px);
-        fill: var(--font-color);
     }
 
     .layout-container {
