@@ -30,10 +30,10 @@ const main = (function () {
         const placeSymbol = (boardCoordinates) => {
             const row = boardCoordinates.slice(0, 1);
             const col = boardCoordinates.slice(1, 2);
-            const player = game.getcurrentPlayer();
+            const player = game.getCurrentPlayer();
 
             if (boardArr[row][col].symbol === ' ') {
-                boardArr[row][col].symbol = player.Symbol;
+                boardArr[row][col].symbol = player.symbol;
                 boardArr[row][col].color = player.color;
             } else {
                 game.switchPlayerTurn(); // switch player to give current player another
@@ -62,13 +62,13 @@ const main = (function () {
             {
                 name: 'Player One',
                 displayName: 'Player',
-                Symbol: 'X',
+                symbol: 'X',
                 color: 'blue',
                 isCurrentPlayer: true,
             }, {
                 name: 'Player Two',
                 displayName: 'Player',
-                Symbol: 'O',
+                symbol: 'O',
                 color: 'red',
                 isCurrentPlayer: false,
             }
@@ -90,7 +90,7 @@ const main = (function () {
             }
         }
 
-        const getcurrentPlayer = () => {
+        const getCurrentPlayer = () => {
             if (players[0].isCurrentPlayer) {
                 return players[0];
             } else {
@@ -99,7 +99,7 @@ const main = (function () {
         }
 
         const isCurrentPlayerWinner = (currentPlayer) => {
-            symbolToCheck = currentPlayer.Symbol
+            const symbolToCheck = currentPlayer.symbol;
             const cell = board.getBoardArr();
             // check is player has 3 on a row horizontaly
             for (let i = 0; i < board.getBoardArr().length; i++) {
@@ -144,16 +144,16 @@ const main = (function () {
             const input = prompt('Enter name:');
             const name = input[0].toUpperCase() + input.slice(1);
             if (e.target.id === 'playerOneDisplay') {
-                setPlayerDisplayName([0], name);
+                setPlayerDisplayName(0, name);
             } else {
-                setPlayerDisplayName([1], name);
+                setPlayerDisplayName(1, name);
             }
             displayController.renderCurrentPlayerMarker();
         }
 
         const playRound = (clickedCell) => {
             board.placeSymbol(clickedCell);
-            isCurrentPlayerWinner(getcurrentPlayer());
+            isCurrentPlayerWinner(getCurrentPlayer());
             switchPlayerTurn();
             displayController.renderCurrentPlayerMarker();
             displayController.renderBoard();
@@ -161,7 +161,7 @@ const main = (function () {
 
         return {
 
-            getcurrentPlayer,
+            getCurrentPlayer,
             switchPlayerTurn,
             playRound,
             resetGame,
@@ -211,7 +211,7 @@ const main = (function () {
         }
 
         const renderCurrentPlayerMarker = () => {
-            const currentPlayer = game.getcurrentPlayer().name;
+            const currentPlayer = game.getCurrentPlayer().name;
             const players = game.getPlayers();
 
             playerOneDisplay.innerHTML = players[0].displayName + ' <span class="playerSymbol playerBlue">X</span>';
@@ -232,10 +232,10 @@ const main = (function () {
 
         const printWinnerOnDialog = () => {
             let name = null;
-            if (game.getcurrentPlayer().displayName === 'Player') {
-                name = game.getcurrentPlayer().name;
+            if (game.getCurrentPlayer().displayName === 'Player') {
+                name = game.getCurrentPlayer().name;
             } else {
-                name = game.getcurrentPlayer().displayName;
+                name = game.getCurrentPlayer().displayName;
             }
             dialogHeader.innerHTML = `${name} wins!`;
         }
