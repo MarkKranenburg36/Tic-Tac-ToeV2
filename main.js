@@ -237,11 +237,11 @@ const main = (function () {
             } else {
                 name = game.getcurrentPlayer().displayName;
             }
-            dialogHeader.innerHTML= `${name} wins!`;
+            dialogHeader.innerHTML = `${name} wins!`;
         }
 
         const toggleDiagram = () => {
-            if(winnerDialog.open) {
+            if (winnerDialog.open) {
                 winnerDialog.classList.remove('dialogShow');
                 winnerDialog.close();
             } else {
@@ -258,7 +258,12 @@ const main = (function () {
         const toggleTheme = () => {
             if (document.documentElement.dataset.theme === 'dark') {
                 document.documentElement.removeAttribute('data-theme')
-                themeBtn.innerText = '🌙';
+                themeBtn.innerHTML = 
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
+                    <path
+                        d="M6 2h8v2h-2v2h-2V4H6V2ZM4 6V4h2v2H4Zm0 10H2V6h2v10Zm2 2H4v-2h2v2Zm2 2H6v-2h2v2Zm10 0v2H8v-2h10Zm2-2v2h-2v-2h2Zm-2-4h2v4h2v-8h-2v2h-2v2Zm-6 0v2h6v-2h-6Zm-2-2h2v2h-2v-2Zm0 0V6H8v6h2Z">
+                    </path>
+                </svg>`;
             } else {
                 document.documentElement.setAttribute('data-theme', 'dark')
                 themeBtn.innerText = '☀️';
@@ -268,11 +273,11 @@ const main = (function () {
         setVh();
         renderBoard();
         renderCurrentPlayerMarker();
-        
+
         window.addEventListener('resize', setVh);
 
-        return { 
-            
+        return {
+
             printWinnerOnDialog,
             renderBoard,
             renderCurrentPlayerMarker,
