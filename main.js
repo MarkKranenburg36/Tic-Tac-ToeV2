@@ -28,17 +28,17 @@ const main = (function () {
         const getFreeze = () => isFreeze;
 
         const placeSymbol = (boardCoordinates) => {
-            const row = boardCoordinates.slice(0, 1);
-            const col = boardCoordinates.slice(1, 2);
+            const row = parseInt(boardCoordinates.slice(0, 1));
+            const col = parseInt(boardCoordinates.slice(1, 2));
+
             const player = game.getCurrentPlayer();
 
             if (boardArr[row][col].symbol === ' ') {
                 boardArr[row][col].symbol = player.symbol;
                 boardArr[row][col].color = player.color;
+                return true;
             } else {
-                game.switchPlayerTurn(); // switch player to give current player another
-                // round to chose new cell, this will undo the effect of the
-                // switch player call in the playround function
+                return false;
             }
         }
 
@@ -80,11 +80,12 @@ const main = (function () {
             players[index].displayName = newName;
         }
 
-        const switchPlayerTurn = () => {
-            if (players[0].isCurrentPlayer) {
+        const switchPlayerTurn = (switchTurn) => {
+
+            if (players[0].isCurrentPlayer && switchTurn) {
                 players[0].isCurrentPlayer = false
                 players[1].isCurrentPlayer = true;
-            } else {
+            } else if (switchTurn) {
                 players[0].isCurrentPlayer = true
                 players[1].isCurrentPlayer = false;
             }
@@ -152,9 +153,10 @@ const main = (function () {
         }
 
         const playRound = (clickedCell) => {
-            board.placeSymbol(clickedCell);
+            let switchTurn = board.placeSymbol(clickedCell);
+
             isCurrentPlayerWinner(getCurrentPlayer());
-            switchPlayerTurn();
+            switchPlayerTurn(switchTurn);
             displayController.renderCurrentPlayerMarker();
             displayController.renderBoard();
         }
@@ -259,7 +261,7 @@ const main = (function () {
             if (document.documentElement.dataset.theme === 'dark') {
                 document.documentElement.removeAttribute('data-theme')
                 themeBtn.innerHTML = 
-                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="43" height="43" fill="#000000">
                     <path
                         d="M6 2h8v2h-2v2h-2V4H6V2ZM4 6V4h2v2H4Zm0 10H2V6h2v10Zm2 2H4v-2h2v2Zm2 2H6v-2h2v2Zm10 0v2H8v-2h10Zm2-2v2h-2v-2h2Zm-2-4h2v4h2v-8h-2v2h-2v2Zm-6 0v2h6v-2h-6Zm-2-2h2v2h-2v-2Zm0 0V6H8v6h2Z">
                     </path>
