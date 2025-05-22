@@ -105,23 +105,19 @@ const main = (function () {
             // check is player has 3 on a row horizontaly
             for (let i = 0; i < board.getBoardArr().length; i++) {
                 const row = board.getBoardArr()[i];
-                if (row[0].symbol === symbolToCheck && row[1].symbol === symbolToCheck && row[2].symbol === symbolToCheck) {
-                    endGame();
-                }
+                if (row[0].symbol === symbolToCheck && row[1].symbol === symbolToCheck && row[2].symbol === symbolToCheck) {return true};
             }
+            
             // check is player has 3 on a row vertically
             for (let i = 0; i < 3; i++) {
-                if (cell[0][i].symbol === symbolToCheck && cell[1][i].symbol === symbolToCheck && cell[2][i].symbol === symbolToCheck) {
-                    endGame();
-                }
+                if (cell[0][i].symbol === symbolToCheck && cell[1][i].symbol === symbolToCheck && cell[2][i].symbol === symbolToCheck) {return true};
             }
             // check is player has 3 on a row diagornally
-            if (cell[0][0].symbol === symbolToCheck && cell[1][1].symbol === symbolToCheck && cell[2][2].symbol === symbolToCheck) {
-                endGame();
-            }
-            if (cell[0][2].symbol === symbolToCheck && cell[1][1].symbol === symbolToCheck && cell[2][0].symbol === symbolToCheck) {
-                endGame();
-            }
+            if (cell[0][0].symbol === symbolToCheck && cell[1][1].symbol === symbolToCheck && cell[2][2].symbol === symbolToCheck) {return true};
+
+            if (cell[0][2].symbol === symbolToCheck && cell[1][1].symbol === symbolToCheck && cell[2][0].symbol === symbolToCheck) {return true};
+
+            return false;
         }
 
         const endGame = () => {
@@ -144,19 +140,18 @@ const main = (function () {
         const inputPlayerDisplayName = (e) => {
             const input = prompt('Enter name:');
             const name = input[0].toUpperCase() + input.slice(1);
-            if (e.target.id === 'playerOneDisplay') {
-                setPlayerDisplayName(0, name);
-            } else {
-                setPlayerDisplayName(1, name);
-            }
+            if (e.target.id === 'playerOneDisplay') {setPlayerDisplayName(0, name)}
+                else {setPlayerDisplayName(1, name)};
             displayController.renderCurrentPlayerMarker();
         }
 
         const playRound = (clickedCell) => {
-            let switchTurn = board.placeSymbol(clickedCell);
+            let isSymbolPlaced = board.placeSymbol(clickedCell); //return true of false, when player
+            // clicks on already chosen cell symbol wil not be placed
 
-            isCurrentPlayerWinner(getCurrentPlayer());
-            switchPlayerTurn(switchTurn);
+            if (isCurrentPlayerWinner(getCurrentPlayer())) endGame();
+
+            switchPlayerTurn(isSymbolPlaced);
             displayController.renderCurrentPlayerMarker();
             displayController.renderBoard();
         }
