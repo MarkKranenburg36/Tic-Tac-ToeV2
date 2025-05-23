@@ -224,8 +224,8 @@ const main = (function () {
         }
 
         resetBtn.addEventListener('click', () => game.resetGame());
-        playerOneDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
-        playerTwoDisplay.addEventListener('click', () => game.inputPlayerDisplayName(event));
+        playerOneDisplay.addEventListener('click', (event) => game.inputPlayerDisplayName(event));
+        playerTwoDisplay.addEventListener('click', (event) => game.inputPlayerDisplayName(event));
 
         const printWinnerOnDialog = () => {
             let name = null;
