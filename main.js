@@ -185,17 +185,13 @@ const main = (function () {
 
         const renderBoard = () => {
             const boardArr = board.getBoardArr();
-            displayBoard.innerHTML = `
-                <div id="cell1" class='${boardArr[0][0].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="00">${boardArr[0][0].symbol}</div>
-                <div id="cell2" class='${boardArr[0][1].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="01">${boardArr[0][1].symbol}</div>
-                <div id="cell3" class='${boardArr[0][2].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="02">${boardArr[0][2].symbol}</div>
-                <div id="cell4" class='${boardArr[1][0].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="10">${boardArr[1][0].symbol}</div>
-                <div id="cell5" class='${boardArr[1][1].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="11">${boardArr[1][1].symbol}</div>
-                <div id="cell6" class='${boardArr[1][2].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="12">${boardArr[1][2].symbol}</div>
-                <div id="cell7" class='${boardArr[2][0].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="20">${boardArr[2][0].symbol}</div>
-                <div id="cell8" class='${boardArr[2][1].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="21">${boardArr[2][1].symbol}</div>
-                <div id="cell9" class='${boardArr[2][2].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="22">${boardArr[2][2].symbol}</div>
-            `;
+            displayBoard.innerHTML = ``;
+
+            for (let i = 0; i < 3; i++) {
+                for(let j = 0; j < 3; j++) {
+                    displayBoard.innerHTML += `<div class='${boardArr[i][j].color === 'red' ? 'playerRed' : 'playerBlue'}' data-cellCoordinates="${i.toString() + j.toString()}">${boardArr[i][j].symbol}</div>`;
+                }
+            }
 
             const boardCells = displayBoard.querySelectorAll(':scope > div');
 
